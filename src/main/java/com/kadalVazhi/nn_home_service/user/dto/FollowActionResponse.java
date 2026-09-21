@@ -1,0 +1,20 @@
+package com.kadalVazhi.nn_home_service.user.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class FollowActionResponse {
+
+    private UUID followerId;
+    private UUID followingId;
+    private String status; // "FOLLOWED" or "UNFOLLOWED"
+    private long totalFollowers;
+}
