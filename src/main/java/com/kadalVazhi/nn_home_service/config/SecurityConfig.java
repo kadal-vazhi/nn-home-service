@@ -31,6 +31,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
+            .cors(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .formLogin(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 // Allow Swagger UI & OpenAPI Docs
@@ -41,9 +44,8 @@ public class SecurityConfig {
                 ).permitAll()
                 // Allow Actuator health checks for Kubernetes
                 .requestMatchers("/actuator/**").permitAll()
-                // Allow registration & public profile endpoints
-                .requestMatchers("/api/v1/users/register").permitAll()
-                .requestMatchers("/api/v1/users/**").permitAll() // Open for development; will be locked with JWT filter next
+                // Allow user API endpoints
+                .requestMatchers("/api/v1/users/**").permitAll()
                 .anyRequest().authenticated()
             );
 

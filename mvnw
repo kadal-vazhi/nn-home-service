@@ -35,5 +35,5 @@ if [ ! -r "$WRAPPER_JAR" ]; then
     curl -o "$WRAPPER_JAR" "$WRAPPER_JAR_URL" -s || wget -O "$WRAPPER_JAR" "$WRAPPER_JAR_URL" --quiet
 fi
 
-# Run maven
-exec java -jar "$WRAPPER_JAR" "$@"
+# Run maven wrapper main class
+exec java -cp "$WRAPPER_JAR" "-Dmaven.multiModuleProjectDirectory=$BASE_DIR" org.apache.maven.wrapper.MavenWrapperMain "$@"
